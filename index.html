@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    
+    <title>Covid-19 App</title>
+    
+    <style>
+      .chart {
+        margin: auto;
+        max-height: 45vh;
+        max-width: 90vw;
+        background-color: #fff;
+        padding: 40px;
+      }
+
+      body{
+        background: #f4f4f4;
+      }
+
+      h1 {
+        margin: auto;
+        width: 20%;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main-container">
+      <header id="header">
+        <h1>Covid-19 Stats</h1>
+      </header>
+      <section>
+        <div>
+          <div class="chart"></div>
+          <div class="countries-data hidden">
+            <div class="countries"></div>
+          </div>
+          <div class="spinner"></div>
+        </div>
+        <div class="buttons-main-container">
+          <h3>Select Statistic Field</h3>
+          <div class="infoType buttons"></div>
+          <h3>Select Region</h3>
+          <div class="continent buttons"></div>
+          <h3>Select Country</h3>
+          <div class="country buttons">
+            <label for="countries">Select Country By Region</label>
+            <select id="countries"></select>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="./index.js"></script>
+  </body>
+</html>

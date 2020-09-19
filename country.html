@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Chart.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+       
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+      
+    <title>Document</title>
+    <style>
+      h1{
+        margin: auto;
+        width: 20%; 
+        padding: 10px;
+      }
+      .buttons{
+        margin: auto;
+        width: 20%; 
+        padding: 10px;
+      }
+     
+    </style>
+  </head>
+  <body>
+    <h1>Covid-19 stats</h1>
+
+    <div class="buttons">
+    <button id="asia">Asia</button>
+    <button id="africa">Africa</button>
+    <button id="americas">Americas</button>
+    <button id="europe">Europe</button>
+  </div>
+
+    <div id="container"></div>
+
+    <div class="container my-5">
+      <div class="row text-center">
+        <div class="col-3 text-warning">
+          <h5>Confirmed</h5>
+          <p id="confirmed"></p>
+        </div>
+        <div class="col-3 text-info">
+          <h5>Active</h5>
+          <p id="active"></p>
+        </div>
+        <div class="col-3 text-success">
+          <h5>Recovered</h5>
+          <p id="recovered"></p>
+        </div>
+        <div class="col-3 text-danger">
+          <h5>Deceased</h5>
+          <p id="deaths"></p>
+        </div>
+      </div>
+    </div>
+
+    <canvas id="myChart"></canvas>
+
+    <script>
+      const proxy = "https://api.allorigins.win/raw?url=";
+      const contriesURL ="https://restcountries.herokuapp.com/api/v1/region/";
+      const ASIA = "asia";
+      const AFRICA = "africa";
+      const AMERICAS = "americas";
+      const EUROPE = "europe";
+
+      let container = document.getElementById('container');
+      
+
+      const asia = document.getElementById('asia');
+      asia.addEventListener("click", function(e) {
+        e.preventDefault();
+        let url = `${proxy}${contriesURL}${ASIA}`;
+        covidData(url);
+      });
+
+      const africa = document.getElementById('africa');
+      africa.addEventListener("click", function(e) {
+        e.preventDefault();
+        let url = `${proxy}${contriesURL}${AFRICA}`;
+        covidData(url);
+      });
+
+      const americas = document.getElementById('americas');
+      americas.addEventListener("click", function(e) {
+        e.preventDefault();
+        let url = `${proxy}${contriesURL}${AMERICAS}`;
+        covidData(url);
+      });
+
+      const europe = document.getElementById('europe');
+      europe.addEventListener("click", function(e) {
+        e.preventDefault();
+        let url = `${proxy}${contriesURL}${EUROPE}`;
+        covidData(url);
+      });
+      
+      async function covidData(url) {
+        let response = await fetch(url);
+        console.log(response);
+        let data = await response.json();
+        
+        container.innerHTML = " ";
+        
+        data.forEach(element => {
+          container.append(element['name']['common']+" ");
+        });
+      }
+      
+       // Chart initialization
+    var myChart = document.getElementById("myChart").getContext("2d");
+    var chart = new Chart(myChart, {
+      type: "line",
+      data: {
+        labels: states,
+        datasets: [
+          {
+            label: "Confirmed Cases",
+            data: confirmed,
+            backgroundColor: "#f1c40f",
+            minBarLength: 100,
+          },
+          {
+            label: "Recovered",
+            data: recovered,
+            backgroundColor: "#2ecc71",
+            minBarLength: 100,
+          },
+          {
+            label: "Deceased",
+            data: deaths,
+            backgroundColor: "#e74c3c",
+            minBarLength: 100,
+          },
+        ],
+      },
+      option: {},
+    });
+  
+
+      
+
+    </script>
+  </body>
+</html>
